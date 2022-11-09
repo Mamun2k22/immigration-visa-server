@@ -4,6 +4,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 5000;
 require('dotenv').config();
+
 // Midle ware
 app.use(cors());
 app.use(express.json());
@@ -25,8 +26,16 @@ async function run() {
         app.get('/services', async (req, res) => {
             const query = {}
             const cursor = serviceCollection.find(query); // find korar jono karsor
-            const services = await cursor.toArray(); // client site use korte pari
-            res.send(services);
+            const service = await cursor.toArray(); // client site use korte pari
+            res.send(service);
+
+        })
+
+        app.get('/services/home', async (req, res) => {
+            const query = {}
+            const cursor = serviceCollection.find(query); // find korar jono karsor
+            const service = await cursor.limit(3).toArray(); // client site use korte pari
+            res.send(service);
 
         })
     }
