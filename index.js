@@ -25,6 +25,12 @@ async function run() {
         const serviceCollection = client.db('immigration').collection('services');
         const reviewCollection = client.db('immigration').collection('review');
 
+        app.post('/jwt', (req, res) => {
+            const user = req.body;
+            const token = jwt.sign(user, process.env.ACCESS_TOKEN, { expiresIn: '30d' })
+            res.send({ token })
+        })
+
         app.get('/services', async (req, res) => {
             const query = {}
             const cursor = serviceCollection.find(query); // find korar jono karsor
