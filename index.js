@@ -41,10 +41,11 @@ async function run() {
         })
 
 
-        app.get('/services/home', async (req, res) => {
+        app.get('/home', async (req, res) => {
             const query = {}
             const cursor = serviceCollection.find(query); // find korar jono karsor
             const service = await cursor.limit(3).toArray(); // client site use korte pari
+            console.log(service);
             res.send(service);
 
         })
